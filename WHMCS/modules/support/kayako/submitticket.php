@@ -139,7 +139,7 @@ if (!isset($_REQUEST['step'])) {
 		$_priority   = kyTicketPriority::get($_POST['ticketpriorityid']);
 		$_ticket     = kyTicket::createNewAuto($_department, $clientsdetails['firstname'] . ' ' . $clientsdetails['lastname'], $clientsdetails['email'], $_POST['ticketmessage'], $_POST['ticketsubject'])
 			->setPriority($_priority)
-			->setAutoResponder($_settings['ignoreautoresponder'])
+			->setIgnoreAutoResponder($_settings['ignoreautoresponder'])
 			->create();
 
 		$_ticketPosts = $_ticket->getPosts();

@@ -5,12 +5,12 @@
  * WHMCS Integration
  * _______________________________________________
  *
- * @author         Ruchi Kothari
+ * @author		Ruchi Kothari
  *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2013, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
+ * @package		WHMCS Integration
+ * @copyright	Copyright (c) 2001-2013, Kayako
+ * @license		http://www.kayako.com/license
+ * @link		http://www.kayako.com
  *
  * ###############################################
  */
@@ -20,7 +20,7 @@
  *
  * @author Ruchi Kothari
  */
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 require_once 'API/kyConfig.php';
 require_once 'API/kyRESTClientInterface.php';
 require_once 'API/kyRESTClient.php';

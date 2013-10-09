@@ -1,34 +1,8 @@
 <link rel="stylesheet" type="text/css" href="{$_jscssURL}/css/kayako.css"/>
 <script type="text/javascript" src="{$_jscssURL}/js/kayako.js"></script>
 <div class="boxcontainer">
-	<div class="boxcontainerlabel">
-	{if $_resolvedTicketCount > 0}
-		<div style="float: right">
-			<div class="headerbuttongreen" id="resolvedviewbutton" onclick="javascript:ToggleViewHideResolved()" {if $_showResolved == 'true'} style="display:none"{/if}>View
-				Resolved Tickets ({$_resolvedTicketCount})
-			</div>
-			<div class="headerbuttongreen" id="resolvedhidebutton" onclick="javascript:ToggleViewHideResolved()" {if $_showResolved == 'false'} style="display:none"{/if}>Hide
-				Resolved Tickets
-			</div>
-		</div>
-	{/if}
-		View Tickets
-	</div>
 
 	<div class="boxcontainercontent" style="clear: both;">
-
-		<form name="fetchTicketsForm" id="fetchTicketsForm" method="post">
-			<div style="float: right; ">
-				<b>Please select department to fetch related tickets:</b>
-
-				<select name="department" onchange="SubmitForm();">
-					{foreach key = _departmentID item = _department from = $_departmentContainer}
-						<option value="{$_department.departmentid}" {if $_selectedDepartment == $_department.departmentid} selected="selected"{/if}>{$_department.departmenttitle}</option>
-					{/foreach}
-				</select>
-
-			</div>
-		</form>
 
 		<table border="0" cellpadding="3" cellspacing="1" width="100%">
 			<tr>
@@ -83,7 +57,24 @@
 				</tr>
 			{/foreach}
 
-			{else}
+			{if $_totalTicketCount > $_recordsPerPage}
+
+			<div>
+				<div style="float: left;">
+					{if $_pageOffset > 1}
+						<a href="{$_listTicketURL}?page={$_pageOffset-1}">&laquo; Previous</a>
+					{/if}
+				</div>
+				<div style="float: right;">
+					{if $_pageOffset < $_lastPage}
+						<a href="{$_listTicketURL}?page={$_pageOffset+1}">Next &raquo;</a>
+					{/if}
+				</div>
+			</div>
+
+			{/if}
+
+		{else}
 
 			<td class="ticketlistpropertiescontainer" align="center" valign="middle" colspan="7">
 				<i>You do not have any open ticket in your account. Please click

@@ -4,8 +4,10 @@
  *
  * @author Tomasz Sawicki (https://github.com/Furgas)
  * @link http://wiki.kayako.com/display/DEV/REST+-+TicketPost
- * @since Kayako version 4.01.240
+ * @since Kayako version 4.50.1636
  * @package Object\Ticket
+ *
+ * @noinspection PhpDocSignatureInspection
  */
 class kyTicketPost extends kyObjectBase {
 	/**
@@ -181,6 +183,13 @@ class kyTicketPost extends kyObjectBase {
 	 */
 	protected $subject;
 
+    /**
+     * Whether the ticket post should be created as private (hidden from the customer) or not.
+     * @apiField
+     * @var bool
+     */
+    protected $is_private = false;
+
 	/**
 	 * Ticket post attachments.
 	 * @var kyTicketAttachment[]
@@ -225,6 +234,12 @@ class kyTicketPost extends kyObjectBase {
 		$this->staff_id = ky_assure_positive_int($data['staffid']);
 		$this->is_survey_comment = ky_assure_bool($data['issurveycomment']);
 		$this->contents = $data['contents'];
+        //isprivate field is not returned when getting all ticket posts (it may be a bug in Kayako)
+        if (array_key_exists('isprivate', $data)) {
+		    $this->is_private = ky_assure_bool($data['isprivate']);
+        } else {
+            $this->is_private = null;
+        }
 	}
 
 	public function buildData($create) {
@@ -235,6 +250,7 @@ class kyTicketPost extends kyObjectBase {
 		$data['ticketid'] = $this->ticket_id;
 		$data['subject'] = $this->subject !== null ? $this->subject : '';
 		$data['contents'] = $this->contents;
+        $data['isprivate'] = $this->is_private;
 
 		if (!is_numeric($this->staff_id) && !is_numeric($this->user_id))
 			throw new kyException("Value for API fields 'staffid' or 'userid' is required for this operation to complete.");
@@ -675,6 +691,28 @@ class kyTicketPost extends kyObjectBase {
 		return $this;
 	}
 
+    /**
+     * Returns whether the ticket post was created as private (hidden from the customer) or not.
+     *
+     * @return bool
+     * @filterBy
+     * @orderBy
+     */
+    public function getIsPrivate() {
+        return $this->is_private;
+    }
+
+	/**
+	 * Sets whether the ticket post should be created as private (hidden from the customer) or not.
+	 *
+	 * @param bool $is_private Whether the ticket post should be created as private (hidden from the customer) or not.
+	 * @return kyTicketPost
+	 */
+	public function setIsPrivate($is_private) {
+		$this->is_private = ky_assure_bool($is_private);
+		return $this;
+	}
+
 	/**
 	 * Returns list of attachments in this post. Result is cached.
 	 *
@@ -698,6 +736,7 @@ class kyTicketPost extends kyObjectBase {
 				}
 			}
 		}
+		/** @noinspection PhpParamsInspection */
 		return new kyResultSet($this->attachments);
 	}
 
@@ -724,9 +763,10 @@ class kyTicketPost extends kyObjectBase {
 	 *
 	 * @param string $contents Raw contents of the file.
 	 * @param string $file_name Filename.
+	 * @return kyTicketAttachment
 	 */
 	public function newAttachment($contents, $file_name) {
-		return kyTicketAttachment::createNewFromFile($this, $file_path, $file_name);
+		return kyTicketAttachment::createNew($this, $contents, $file_name);
 	}
 
 	/**
@@ -735,6 +775,7 @@ class kyTicketPost extends kyObjectBase {
 	 *
 	 * @param string $file_path Path to file.
 	 * @param string $file_name Optional. Use to set filename other than physical file.
+	 * @return kyTicketAttachment
 	 */
 	public function newAttachmentFromFile($file_path, $file_name = null) {
 		return kyTicketAttachment::createNewFromFile($this, $file_path, $file_name);

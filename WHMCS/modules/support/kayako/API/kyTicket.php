@@ -6,6 +6,8 @@
  * @link http://wiki.kayako.com/display/DEV/REST+-+Ticket
  * @since Kayako version 4.40.1079
  * @package Object\Ticket
+ *
+ * @noinspection PhpDocSignatureInspection
  */
 class kyTicket extends kyObjectWithCustomFieldsBase {
 
@@ -354,10 +356,17 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 
 	/**
 	 * Template group identifier.
-	 * @apiField
+	 * @apiField getter=getTemplateGroupId setter=setTemplateGroup alias=templategroup
 	 * @var int
 	 */
 	protected $template_group_id;
+
+	/**
+	 * Template group name.
+	 * @apiField getter=getTemplateGroupName setter=setTemplateGroup
+	 * @var string
+	 */
+	protected $template_group_name;
 
 	/**
 	 * Ticket tags.
@@ -394,12 +403,12 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 	 */
 	protected $contents = null;
 
-	/**
-	 * Ticket ignore auto responder.
-	 * @apiField
-	 * @var int
-	 */
-	protected $ignoreautoresponder;
+    /**
+     * Option to disable autoresponder e-mail.
+     * @apiField
+     * @var bool
+     */
+    protected $ignore_auto_responder = false;
 
 	/**
 	 * Ticket status.
@@ -526,6 +535,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		$this->is_escalated = ky_assure_bool($data['isescalated']);
 		$this->escalation_rule_id = ky_assure_positive_int($data['escalationruleid']);
 		$this->template_group_id = ky_assure_positive_int($data['templategroupid']);
+		$this->template_group_name = $data['templategroupname'];
 		$this->tags = $data['tags'];
 
 		$this->watchers = array();
@@ -587,13 +597,12 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		$data['ticketstatusid'] = $this->status_id;
 		$data['ticketpriorityid'] = $this->priority_id;
 		$data['tickettypeid'] = $this->type_id;
-		$data['ignoreautoresponder'] = $this->ignoreautoresponder;
 
 		if ($this->owner_staff_id > 0) {
 			$data['ownerstaffid'] = $this->owner_staff_id;
 		}
 
-		$data['templategroupid'] = $this->template_group_id;
+		$data['templategroup'] = is_numeric($this->template_group_id) ? $this->template_group_id : $this->template_group_name;
 
 		if ($create) {
 			switch ($this->creator) {
@@ -618,6 +627,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 
 			$data['contents'] = $this->contents;
 			$data['type'] = $this->creation_type;
+            $data['ignoreautoresponder'] = $this->ignore_auto_responder;
  		} else {
  			$data['userid'] = $this->user_id;
  		}
@@ -629,13 +639,78 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 	 * Searches for tickets based on provided data. You must provide at least one department identifier.
 	 *
 	 * @param kyDepartment|kyResultSet $departments Non-empty list of department identifiers.
-	 * @param kyTicketStatus|kyResultSet $ticket_statuses List of ticket status identifiers.
-	 * @param kyStaff|kyResultSet $owner_staffs List of staff (ticket owners) identifiers.
-	 * @param kyUser|kyResultSet $users List of user (ticket creators) identifiers.
+	 * @param array|kyResultSet|kyTicketStatus $ticket_statuses List of ticket status identifiers.
+	 * @param array|kyResultSet|kyStaff $owner_staffs List of staff (ticket owners) identifiers.
+	 * @param array|kyResultSet|kyUser $users List of user (ticket creators) identifiers.
+	 * @throws InvalidArgumentException
 	 * @return kyResultSet
 	 */
-	static public function getAll($departments, $ticket_statuses = array(), $owner_staffs = array(), $users = array()) {
-		$search_parameters = array('ListAll');
+	static public function getAll($departments, $ticket_statuses = array(), $owner_staffs = array(), $users = array(), $_userEmail = '', $_ticketCount = -1, $_pageOffset = 0) {
+
+		$search_parameters = self::processData('ListAll', $departments, $ticket_statuses, $owner_staffs, $users);
+
+		if ($_ticketCount > 0) {
+			$search_parameters[] = $_ticketCount;
+		}
+
+		$search_parameters[] = $_pageOffset;
+
+		$data = array();
+		if (!empty($_userEmail)) {
+			$data['email'] = $_userEmail;
+		}
+
+		$result = self::getRESTClient()->post('/Tickets/Ticket', $search_parameters, $data);
+
+		$objects = array();
+		if (array_key_exists(static::$object_xml_name, $result)) {
+			foreach ($result[static::$object_xml_name] as $object_data) {
+				$objects[] = new static($object_data);
+			}
+		}
+		return new kyResultSet($objects);
+	}
+
+	/**
+	 * Get total count for tickets based on provided data
+	 *
+	 * @param kyDepartment|kyResultSet         $departments     Non-empty list of department identifiers.
+	 * @param array|kyResultSet|kyTicketStatus $ticket_statuses List of ticket status identifiers.
+	 * @param array|kyResultSet|kyStaff        $owner_staffs    List of staff (ticket owners) identifiers.
+	 * @param array|kyResultSet|kyUser         $users           List of user (ticket creators) identifiers.
+	 * @param string                           $_userEmail
+	 *
+	 * @return kyResultSet
+	 */
+	static public function getTicketCount($departments, $ticket_statuses = array(), $owner_staffs = array(), $users = array(), $_userEmail = '') {
+
+		$search_parameters = self::processData('GetTicketCount', $departments, $ticket_statuses, $owner_staffs, $users);
+
+		$data = array();
+		if (!empty($_userEmail)) {
+			$data['email'] = $_userEmail;
+		}
+
+		$result = self::getRESTClient()->post('/Tickets/Ticket', $search_parameters, $data);
+
+		return $result['totalcount'];
+	}
+
+	/**
+	 * Process tickets related data. You must provide at least one department identifier.
+	 *
+	 * @param string                           $method
+	 * @param kyDepartment|kyResultSet         $departments     Non-empty list of department identifiers.
+	 * @param array|kyResultSet|kyTicketStatus $ticket_statuses List of ticket status identifiers.
+	 * @param array|kyResultSet|kyStaff        $owner_staffs    List of staff (ticket owners) identifiers.
+	 * @param array|kyResultSet|kyUser         $users           List of user (ticket creators) identifiers.
+	 *
+	 * @throws InvalidArgumentException
+	 * @return array $search_parameters
+	 */
+	static public function processData($method, $departments, $ticket_statuses = array(), $owner_staffs = array(), $users = array()) {
+
+		$search_parameters = array($method);
 
 		$department_ids = array();
 		if ($departments instanceof kyDepartment) {
@@ -689,7 +764,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		else
 			$search_parameters[] = '-1';
 
-		return parent::getAll($search_parameters);
+		return $search_parameters;
 	}
 
 	/**
@@ -1556,14 +1631,66 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 
 	/**
 	 * Sets the template group identifier.
+     * Resets template group name.
 	 *
 	 * @param int $template_group_id Template group identifier.
 	 * @return kyTicket
 	 */
 	public function setTemplateGroupId($template_group_id) {
 		$this->template_group_id = ky_assure_positive_int($template_group_id);
+        $this->template_group_name = null;
 		return $this;
 	}
+
+	/**
+	* Returns template group name.
+	*
+	* @return string
+	* @filterBy
+	* @orderBy
+	*/
+	public function getTemplateGroupName() {
+		return $this->template_group_name;
+	}
+
+	/**
+	 * Sets the template group name.
+     * Resets template group identifier.
+	 *
+	 * @param string $template_group_name Template group name.
+	 * @return kyTicket
+	 */
+	public function setTemplateGroupName($template_group_name) {
+		$this->template_group_name = ky_assure_string($template_group_name);
+        $this->template_group_id = null;
+		return $this;
+	}
+
+	/**
+	 * Sets the template group. You can provide name or identifier.
+	 *
+	 * @param string|int $template_group_id_or_name Template group name or identifier.
+	 * @return kyTicket
+	 */
+	public function setTemplateGroup($template_group_id_or_name) {
+        if (is_numeric($template_group_id_or_name)) {
+            $this->setTemplateGroupId($template_group_id_or_name);
+        } else {
+            $this->setTemplateGroupName($template_group_id_or_name);
+        }
+		return $this;
+	}
+
+    /**
+     * Sets whether to ignore (disable) autoresponder e-mail.
+     *
+     * @param bool $ignore_auto_responder Whether to ignore (disable) autoresponder e-mail.
+     * @return kyTicket
+     */
+    public function setIgnoreAutoResponder($ignore_auto_responder) {
+        $this->ignore_auto_responder = ky_assure_bool($ignore_auto_responder);
+        return $this;
+    }
 
 	/**
 	 * Returns tickets watchers.
@@ -1630,6 +1757,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		if ($this->time_tracks === null || $reload) {
 			$this->time_tracks = kyTicketTimeTrack::getAll($this->getId())->getRawArray();
 		}
+		/** @noinspection PhpParamsInspection */
 		return new kyResultSet($this->time_tracks);
 	}
 
@@ -1645,6 +1773,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		if ($this->posts === null || $reload) {
 			$this->posts = kyTicketPost::getAll($this->getId())->getRawArray();
 		}
+		/** @noinspection PhpParamsInspection */
 		return new kyResultSet($this->posts);
 	}
 
@@ -1669,6 +1798,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		if ($this->attachments === null || $reload) {
 			$this->attachments = kyTicketAttachment::getAll($this->id)->getRawArray();
 		}
+		/** @noinspection PhpParamsInspection */
 		return new kyResultSet($this->attachments);
 	}
 
@@ -1699,7 +1829,6 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		$new_ticket->setDepartment($department);
 		$new_ticket->setSubject($subject);
 		$new_ticket->setContents($contents);
-
 		return $new_ticket;
 	}
 
@@ -1916,11 +2045,5 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 			self::$statistics['ticket_owners'][$staff_id > 0 ? $staff_id : 'unassigned'] = $owner_staff_stats;
 		}
 		return self::$statistics;
-	}
-
-	public function setAutoResponder($ignoreAutoResponseEmail = 0) {
-		$this->ignoreautoresponder = $ignoreAutoResponseEmail;
-
-		return $this;
 	}
 }

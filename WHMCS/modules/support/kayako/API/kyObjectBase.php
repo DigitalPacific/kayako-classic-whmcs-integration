@@ -221,6 +221,7 @@ abstract class kyObjectBase {
 	/**
 	 * Refreshes the object data from server.
 	 *
+	 * @throws BadMethodCallException
 	 * @return kyObjectBase
 	 */
 	public function refresh() {
@@ -240,25 +241,33 @@ abstract class kyObjectBase {
 		return $this;
 	}
 
-	/**
-	 * Creates an object on the server and refreshes its local data.
-	 *
-	 * @return kyObjectBase
-	 */
+    /**
+     * Creates an object on the server and refreshes its local data.
+     *
+     * @throws BadMethodCallException
+     * @throws kyException
+     * @return kyObjectBase
+     */
 	public function create() {
 		if ($this->read_only)
 			throw new BadMethodCallException(sprintf("You can't create new objects of type %s.", get_called_class()));
 
 		$result = self::getRESTClient()->post(static::$controller, array(), $this->buildData(true));
+
+        if (count($result) === 0)
+            throw new kyException("No data returned by the server after creating the object.");
+
 		$this->parseData($result[static::$object_xml_name][0]);
 		return $this;
 	}
 
-	/**
-	 * Updates the object on the server and refreshes its local data.
-	 *
-	 * @return kyObjectBase
-	 */
+    /**
+     * Updates the object on the server and refreshes its local data.
+     *
+     * @throws BadMethodCallException
+     * @throws kyException
+     * @return kyObjectBase
+     */
 	public function update() {
 		if ($this->read_only)
 			throw new BadMethodCallException(sprintf("You can't update objects of type %s.", get_called_class()));
@@ -267,7 +276,11 @@ abstract class kyObjectBase {
 			throw new BadMethodCallException(sprintf("You can't update object before it was created. Create it first.", get_called_class()));
 
 		$result = self::getRESTClient()->put(static::$controller, $this->getId(true), $this->buildData(false));
-		$this->parseData($result[static::$object_xml_name][0]);
+
+        if (count($result) === 0)
+            throw new kyException("No data returned by the server after updating the object.");
+
+        $this->parseData($result[static::$object_xml_name][0]);
 		return $this;
 	}
 
@@ -436,7 +449,7 @@ abstract class kyObjectBase {
 	 */
 	static public function getRequiredAPIFields($create) {
 		static::initAPIFieldsAccessors();
-		$classname = get_class($this);
+		$classname = get_called_class();
 
 		$required_fields = array();
 		foreach (self::$_api_fields[$classname] as $api_field => $api_field_parameters) {
@@ -459,6 +472,7 @@ abstract class kyObjectBase {
 	 */
 	public function checkRequiredAPIFields($create, $throw_exception = true) {
 		$classname = get_class($this);
+		/** @noinspection PhpUndefinedMethodInspection */
 		$classname::initAPIFieldsAccessors();
 
 		$missing_fields = array();
@@ -509,6 +523,7 @@ abstract class kyObjectBase {
 		}
 
 		trigger_error(sprintf('Undefined property: %s::$%s', $classname, $api_field_name), E_USER_NOTICE);
+		return null;
 	}
 
 	/**
@@ -556,6 +571,7 @@ abstract class kyObjectBase {
 			//get public methods in the class and search for @filterBy name=filter_name in doc comment
 			$class = new ReflectionClass($class_name);
 			foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
+				/** @var $method ReflectionMethod */
 				$get_method_name = $method->getName();
 				$method_comment = $method->getDocComment();
 				$parameters = ky_get_tag_parameters($method_comment, 'filterBy');
@@ -591,6 +607,7 @@ abstract class kyObjectBase {
 			//get public methods in the class and search for @orderBy order_method_name in doc comment
 			$class = new ReflectionClass($class_name);
 			foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
+				/** @var $method ReflectionMethod */
 				$get_method_name = $method->getName();
 				$method_comment = $method->getDocComment();
 				$parameters = ky_get_tag_parameters($method_comment, 'orderBy');

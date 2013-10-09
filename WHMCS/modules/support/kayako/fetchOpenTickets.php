@@ -35,7 +35,7 @@ kyConfig::set(new kyConfig(API_URL, API_KEY, SECRET_KEY));
 
 $_ticketDepartmentObjectContainer = kyDepartment::getAll()->filterByModule(kyDepartment::MODULE_TICKETS)->filterByType(kyDepartment::TYPE_PUBLIC);
 
-$_ticketStatusObjectContainer = kyTicketStatus::getAll()->filterByType(kyTicketStatus::TYPE_PUBLIC);
+$_ticketStatusObjectContainer = kyTicketStatus::getAll()->filterByType(kyTicketStatus::TYPE_PUBLIC)->first();
 
 $_ticketStatusContainer = array();
 foreach ($_ticketStatusObjectContainer as $_ticketStatusObject) {
@@ -48,8 +48,7 @@ foreach ($_ticketStatusObjectContainer as $_ticketStatusObject) {
 	$_ticketStatusContainer[$_ticketStatusID] = $_ticketStatus;
 }
 
-$_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentObjectContainer, $_ticketStatusObjectContainer)
-	->filterByEmail($_params['clientsdetails']['email'])
+$_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentObjectContainer, $_ticketStatusObjectContainer, array(), array(), $_params['clientsdetails']['email'], $_settings['recordsperpage'], 0)
 	->orderByLastActivity();
 
 $_ticketContainer  = array();
@@ -71,6 +70,7 @@ foreach ($_ticketObjectContainer as $_ticketObject) {
 	$_ticket['date']       = $_ticketObject->getCreationTime();
 	$_ticket['department'] = $_ticketObject->getDepartment()->getTitle();
 	$_ticket['status']     = $_ticketObject->getStatus()->getTitle();
+	$_ticket['urgency']    = $_ticketObject->getPriority()->getTitle();
 	$_ticket['subject']    = $_ticketObject->getSubject();
 	$_ticket['lastreply']  = $_ticketObject->getLastActivity();
 

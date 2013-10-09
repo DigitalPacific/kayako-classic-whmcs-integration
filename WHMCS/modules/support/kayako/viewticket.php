@@ -5,12 +5,12 @@
  * WHMCS Integration
  * _______________________________________________
  *
- * @author         Ruchi Kothari
+ * @author		Ruchi Kothari
  *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2013, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
+ * @package		WHMCS Integration
+ * @copyright	Copyright (c) 2001-2013, Kayako
+ * @license		http://www.kayako.com/license
+ * @link		http://www.kayako.com
  *
  * ###############################################
  */
@@ -87,7 +87,7 @@ if (isset($_GET['aid'])) {
 	$_ticketObject = kyTicket::get($_GET['ticketid']);
 
 	$_ticketPost = kyTicketPost::createNew($_ticketObject, $_user, $_POST['replycontents'])
-		->create();
+					->create();
 
 	//Save ticket post attachments
 	foreach ($_FILES['ticketattachments']['tmp_name'] as $_key => $_ticketAttachment) {
@@ -96,10 +96,12 @@ if (isset($_GET['aid'])) {
 	}
 
 	header('Location: ' . WHMCS_URL . 'viewticket.php?ticketid=' . $_GET['ticketid']);
+
 } else if ($_REQUEST['action'] == 'update') {
 
 	require_once 'updateticket.php';
 	header('Location: ' . WHMCS_URL . 'viewticket.php?ticketid=' . $_GET['ticketid']);
+
 } else {
 	require_once 'ticketview.php';
 }

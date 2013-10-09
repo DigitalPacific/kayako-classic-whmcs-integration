@@ -35,28 +35,8 @@ $_knowledgebaseCategoryContainer_Complete = $_restClient->get($_categoryControll
 $_knowledgebaseCategoryContainer_Complete = $_knowledgebaseCategoryContainer_Complete['kbcategory'];
 
 //Retrieve Knowledgebase articles
-$_searchParameters                       = array('GetList');
-$_knowledgebaseArticleContainer_Complete = $_restClient->get($_articalController, $_searchParameters);
-$_knowledgebaseArticleContainer_Complete = $_knowledgebaseArticleContainer_Complete['kbarticle'];
-
-//Add articles to corresponding categories
-$_categoryArticleList = array();
-foreach ($_knowledgebaseArticleContainer_Complete as $_key => $_knowledgebaseArticle) {
-
-	$_knowledgebaseArticle['subject']                          = GetSubstr($_knowledgebaseArticle['subject'], 0, $_settings['subjectcharlimit']);
-	$_knowledgebaseArticleContainer_Complete[$_key]['subject'] = $_knowledgebaseArticle['subject'];
-
-	$_knowledgebaseArticle['contentstext']                          = GetSubstr($_knowledgebaseArticle['contentstext'], 0, $_settings['articlecharlimit']);
-	$_knowledgebaseArticleContainer_Complete[$_key]['contentstext'] = $_knowledgebaseArticle['contentstext'];
-
-	if (is_array($_knowledgebaseArticle['categories'][0]['categoryid'])) {
-		foreach ($_knowledgebaseArticle['categories'][0]['categoryid'] as $_categoryID) {
-			$_categoryArticleList[$_categoryID][] = $_knowledgebaseArticle;
-		}
-	} else {
-		$_categoryArticleList[$_knowledgebaseArticle['categories'][0]['categoryid']][] = $_knowledgebaseArticle;
-	}
-}
+$_knowledgebaseArticleCount = $_restClient->get($_articalController, array('GetArticleCount', $_parentCategoryID));
+$_totalArticles             = $_knowledgebaseArticleCount['totalarticles'];
 
 $_tdWidth = round(100 / $_settings['categorycolumns']);
 
@@ -72,7 +52,7 @@ foreach ($_knowledgebaseCategoryContainer_Complete as $_key => $_knowledgebaseCa
 
 	if (isset($_GET['catid']) && $_knowledgebaseCategory['parentkbcategoryid'] == $_GET['catid'] || !isset($_GET['catid']) && $_knowledgebaseCategory['parentkbcategoryid'] == 0) {
 
-		if ($_index > CATEGORY_COLUMNS) {
+		if ($_index > $_settings['categorycolumns']) {
 			$_index                              = 1;
 			$_knowledgebaseCategory['jumptorow'] = true;
 		} else {
@@ -93,8 +73,14 @@ if ($_parentCategoryID != 0) {
 	$smarty->assign('_parentCategoryList', $_parentCategoryList);
 }
 
+$_offset = ($_GET['page'] > 1 ? ($_GET['page'] - 1) * $_settings['recordsperpage'] : 0);
+
+$_searchParameters                        = array('ListAll', $_parentCategoryID, $_settings['recordsperpage'], $_offset);
+$_parentCategoryArticleContainer_Complete = $_restClient->get($_articalController, $_searchParameters);
+$_parentCategoryArticleContainer_Complete = $_parentCategoryArticleContainer_Complete['kbarticle'];
+
 $_knowledgebaseArticleContainer = array();
-foreach ($_knowledgebaseArticleContainer_Complete as $_knowledgebaseArticle) {
+foreach ($_parentCategoryArticleContainer_Complete as $_knowledgebaseArticle) {
 	if (in_array($_parentCategoryID, $_knowledgebaseArticle['categories'][0]) || in_array($_parentCategoryID, $_knowledgebaseArticle['categories'][0]['categoryid'])) {
 		$_knowledgebaseArticleContainer[] = $_knowledgebaseArticle;
 	}
@@ -102,19 +88,16 @@ foreach ($_knowledgebaseArticleContainer_Complete as $_knowledgebaseArticle) {
 
 $_knowledgebaseArticleContainer = SortRecords($_knowledgebaseArticleContainer, 'subject');
 
-$_knowledgebaseArticleContainer_Recent = SortRecords($_knowledgebaseArticleContainer_Complete, 'dateline');
-$_knowledgebaseArticleContainer_Recent = array_slice($_knowledgebaseArticleContainer_Recent, 0, $_settings['recentarticlelimit']);
-
-$_knowledgebaseArticleContainer_Popular = SortRecords($_knowledgebaseArticleContainer_Complete, 'views');
-$_knowledgebaseArticleContainer_Popular = array_slice($_knowledgebaseArticleContainer_Popular, 0, $_settings['populararticlelimit']);
-
 $smarty->assign('_knowledgebaseCategoryListContainer', $_knowledgebaseCategoryContainer);
 $smarty->assign('_knowledgebaseCategoryCount', count($_knowledgebaseCategoryContainer));
 
 $smarty->assign('_knowledgebaseArticleContainer', $_knowledgebaseArticleContainer);
 $smarty->assign('_knowledgebaseArticleCount', count($_knowledgebaseArticleContainer));
 
-$smarty->assign('_knowledgebaseArticleContainer_Recent', $_knowledgebaseArticleContainer_Recent);
-$smarty->assign('_knowledgebaseArticleContainer_Popular', $_knowledgebaseArticleContainer_Popular);
+$smarty->assign('_knowledgebaseURL', WHMCS_URL . 'knowledgebase.php?catid=' . $_parentCategoryID);
+$smarty->assign('_totalArticleCount', $_totalArticles);
+$smarty->assign('_pageOffset', (isset($_GET['page']) ? $_GET['page'] : 1));
+$smarty->assign('_lastPage', ceil($_totalArticles / $_settings['recordsperpage']));
+$smarty->assign('_recordsPerPage', $_settings['recordsperpage']);
 
 $templatefile = 'knowledgebasecat';
