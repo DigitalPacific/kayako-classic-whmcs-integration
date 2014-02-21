@@ -1,4 +1,4 @@
-{if $_noPermissions}
+{if $_noPermissions == true}
 	<div style="text-align: center;">We are sorry, but you have no permission to view this ticket.</div>
 	<br/><br/>
 {else}
