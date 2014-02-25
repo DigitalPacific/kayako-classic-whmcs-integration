@@ -118,7 +118,6 @@ class kyRESTClient implements kyRESTClientInterface {
 	 * @return array
 	 */
 	protected function processRequest($controller, $method, $parameters = array(), $data = array(), $files = array()) {
-
 		$url = $this->getRequestData($controller, $method, $parameters, $data);
 
 		$headers = array();
@@ -129,7 +128,7 @@ class kyRESTClient implements kyRESTClientInterface {
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_SSL_VERIFYHOST => false,
-			CURLOPT_CONNECTTIMEOUT => 2,
+			CURLOPT_CONNECTTIMEOUT => 20,
 			CURLOPT_FORBID_REUSE => true,
 			CURLOPT_FRESH_CONNECT => true,
 			CURLOPT_HTTPHEADER => $headers,

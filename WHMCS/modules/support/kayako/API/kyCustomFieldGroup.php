@@ -1,5 +1,14 @@
 <?php
-class kyCustomFieldGroup extends kyObjectBase{
+/**
+ * Kayako Custom Field Group object.
+ *
+ * @author Ruchi Kothari
+ *
+ * @since Kayako version 4.51.1891
+ * @package Object\CustomFieldGroup
+ */
+class kyCustomFieldGroup extends kyObjectBase
+{
 	const GROUP_USER = 1; // User Registration
 	const GROUP_USERORGANIZATION = 2; // User Organization
 	const GROUP_LIVECHATPRE = 10; // Live Chat (Pre Chat)
@@ -12,7 +21,7 @@ class kyCustomFieldGroup extends kyObjectBase{
 	const GROUP_NEWS = 13; // News Items
 	const GROUP_TROUBLESHOOTER = 14; // Troubleshooter Items
 	const GROUP_DOWNLOADS = 15; // Downloads Items
-	
+
 	static protected $controller = '/Base/CustomFieldGroup';
 	static protected $object_xml_name = 'customfieldgroup';
 
@@ -22,16 +31,17 @@ class kyCustomFieldGroup extends kyObjectBase{
 	private $visibilitytype;
 	private $displayorder;
 
-	protected function parseData($data) {
-
-		$this->id = intval($data['_attributes']['customfieldgroupid']);
+	protected function parseData($data)
+	{
+		$this->id             = intval($data['_attributes']['customfieldgroupid']);
 		$this->visibilitytype = intval($data['_attributes']['visibilitytype']);
-		$this->displayorder = intval($data['_attributes']['displayorder']);
-		$this->title = $data['_attributes']['title'];
-		$this->grouptype = $data['_attributes']['grouptype'];
+		$this->displayorder   = intval($data['_attributes']['displayorder']);
+		$this->title          = $data['_attributes']['title'];
+		$this->grouptype      = $data['_attributes']['grouptype'];
 	}
 
-	public function getId($complete = false) {
+	public function getId($complete = false)
+	{
 		return $complete ? array($this->id) : $this->id;
 	}
 
@@ -40,7 +50,8 @@ class kyCustomFieldGroup extends kyObjectBase{
 	 *
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle()
+	{
 		return $this->title;
 	}
 
@@ -51,7 +62,8 @@ class kyCustomFieldGroup extends kyObjectBase{
 	 * @filterBy
 	 * @orderBy
 	 */
-	public function getGroupType() {
+	public function getGroupType()
+	{
 		return $this->grouptype;
 	}
 
@@ -62,7 +74,8 @@ class kyCustomFieldGroup extends kyObjectBase{
 	 * @filterBy
 	 * @orderBy
 	 */
-	public function getVisibilityType() {
+	public function getVisibilityType()
+	{
 		return $this->visibilitytype;
 	}
 
@@ -71,29 +84,14 @@ class kyCustomFieldGroup extends kyObjectBase{
 	 *
 	 * @return string
 	 */
-	public function getDisplayOrder() {
+	public function getDisplayOrder()
+	{
 		return $this->displayorder;
 	}
 
 
-	public function toString() {
+	public function toString()
+	{
 		return sprintf("%s (type: %s, module: %s)", $this->getTitle(), $this->getType(), $this->getModule());
 	}
-
-	/**
-	 * Fetches custom fields groups from server.
-	 *
-	 * @return kyResultSet
-	 */
-//	static public function getAll() {
-//		$result = self::getRESTClient()->get(static::$controller);
-//		$objects = array();
-//		if (array_key_exists(static::$object_xml_name, $result)) {
-//			foreach ($result[static::$object_xml_name] as $object_data) {
-//				$objects[] = new static($ticket_id, $object_data);
-//			}
-//		}
-//		return new kyResultSet($objects);
-//	}
 }
-?>

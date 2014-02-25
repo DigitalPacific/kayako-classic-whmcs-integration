@@ -5,12 +5,12 @@
  * WHMCS Integration
  * _______________________________________________
  *
- * @author         Ruchi Kothari
+ * @author		Ruchi Kothari
  *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2013, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
+ * @package		WHMCS Integration
+ * @copyright	Copyright (c) 2001-2013, Kayako
+ * @license		http://www.kayako.com/license
+ * @link		http://www.kayako.com
  *
  * ###############################################
  */
@@ -218,12 +218,14 @@ function RenderCustomField($_customFieldObject, $_mode = MODE_INSERT)
 
 	// Get customfield value
 	$_customfieldValue = $_customFieldDefinition->getDefaultValue();
+
 	if ($_mode == MODE_EDIT) {
 		if ($_customFieldObject->getValue() != "") {
 			$_customfieldValue = $_customFieldObject->getValue();
 		}
 	}
-
+	//echo "<pre>";
+	//print_r($_customfieldValue);
 	switch ($_customFieldObject->getType()) {
 		case kyCustomFieldDefinition::TYPE_TEXT:
 			$_customField['fieldtype']  = 'text';
@@ -264,8 +266,10 @@ function RenderCustomField($_customFieldObject, $_mode = MODE_INSERT)
 		case kyCustomFieldDefinition::TYPE_CHECKBOX:
 			$_customField['fieldtype'] = 'checkbox';
 			$_valueList                = GetValueList($_customfieldValue);
+			//echo "<pre>";
+			//print_r($_customfieldValue);
 			$_optionsContainer         = GetOptions($_customField, $_valueList);
-
+//print_r($_optionsContainer);
 			if ($_customField['usereditable'] == 0 && $_mode == MODE_EDIT) {
 				$_customField['valuetype']  = 'static';
 				$_customField['fieldvalue'] = GetStaticOptions($_optionsContainer);

@@ -5,12 +5,12 @@
  * WHMCS Integration
  * _______________________________________________
  *
- * @author         Ruchi Kothari
+ * @author		Ruchi Kothari
  *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2013, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
+ * @package		WHMCS Integration
+ * @copyright	Copyright (c) 2001-2013, Kayako
+ * @license		http://www.kayako.com/license
+ * @link		http://www.kayako.com
  *
  * ###############################################
  */
@@ -20,10 +20,9 @@
  *
  * @author Ruchi Kothari
  */
-session_start();
 
 //Include config file
-require_once __DIR__ . '/config.php';
+require_once __DIR__.'/config.php';
 
 //Include all necessary classes and helper methods
 require_once 'API/kyIncludes.php';
@@ -34,34 +33,7 @@ require_once 'constants.php';
 //Initialize the client
 kyConfig::set(new kyConfig(API_URL, API_KEY, SECRET_KEY));
 
-$_ticketDepartmentContainer = array();
-
-if (!empty($_POST['department'])) {
-	$_SESSION['department'] = $_POST['department'];
-}
-
-$_selectedDepartment = !empty($_POST['department']) ? $_POST['department'] : (!empty($_SESSION['department']) ? $_SESSION['department'] : 0);
-
-if (!empty($_selectedDepartment)) {
-	$_ticketDepartmentContainer = kyDepartment::get($_selectedDepartment);
-}
-
-if (empty($_ticketDepartmentContainer)) {
-	$_ticketDepartmentContainer = kyDepartment::getAll()->filterByModule(kyDepartment::MODULE_TICKETS)->filterByType(kyDepartment::TYPE_PUBLIC)->first();
-}
-
-//Fetch List of Departments For Dropdown
-$_departmentObjectContainer = kyDepartment::getAll()->filterByModule(kyDepartment::MODULE_TICKETS)->filterByType(kyDepartment::TYPE_PUBLIC);
-
-$_departmentContainer = array();
-foreach ($_departmentObjectContainer as $_departmentObject) {
-
-	$_departmentID                  = $_departmentObject->getId();
-	$_department['departmentid']    = $_departmentID;
-	$_department['departmenttitle'] = $_departmentObject->getTitle();
-
-	$_departmentContainer[$_departmentID] = $_department;
-}
+$_ticketDepartmentContainer = kyDepartment::getAll()->filterByModule(kyDepartment::MODULE_TICKETS)->filterByType(kyDepartment::TYPE_PUBLIC);
 
 $_ticketStatusObjectContainer = kyTicketStatus::getAll()->filterByType(kyTicketStatus::TYPE_PUBLIC);
 
@@ -101,17 +73,17 @@ if (!isset($_GET['sortby'])) {
 	$_sortBy = $_GET['sortby'];
 }
 
+$_offset = ($_GET['page'] > 1 ? ($_GET['page'] - 1) * $_settings['recordsperpage']: 0 );
+
 if ($_order) {
 	$_sortOrderFlip = 'DESC';
 } else {
 	$_sortOrderFlip = 'ASC';
 }
 
-$_orderByFunction = orderBy . $_sortBy;
+$_totalTicketCount = kyTicket::getTicketCount($_ticketDepartmentContainer, $_ticketStatusObjectContainer, array(), array(), $clientsdetails['email']);
 
-$_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentContainer, $_ticketStatusObjectContainer)
-	->filterByEmail($clientsdetails['email'])
-	->$_orderByFunction($_order);
+$_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentContainer, $_ticketStatusObjectContainer, array(), array(), $clientsdetails['email'], $_settings['recordsperpage'], $_offset, $_sortBy, $_sortOrder);
 
 $_ticketContainer     = array();
 $_resolvedTicketCount = 0;
@@ -143,18 +115,16 @@ foreach ($_ticketObjectContainer as $_ticketObject) {
 	$_ticket['dateline']        = $_ticketObject->getCreationTime();
 	$_ticket['lastactivity']    = $_ticketObject->getLastActivity();
 
-	if (isset($_ticketStatusContainer[$_ticketStatus]) && $_ticketStatusContainer[$_ticketStatus]['markasresolved'] == '1') {
+	/*if (isset($_ticketStatusContainer[$_ticketStatus]) && $_ticketStatusContainer[$_ticketStatus]['markasresolved'] == '1') {
 		$_ticket['isresolved'] = true;
 		$_resolvedTicketCount++;
-	}
+	}*/
 
 	$_ticketContainer[$_ticketID] = $_ticket;
 }
 
-$smarty->assign('_departmentContainer', $_departmentContainer);
-$smarty->assign('_selectedDepartment', $_selectedDepartment);
 $smarty->assign('_ticketContainer', $_ticketContainer);
-$smarty->assign('_resolvedTicketCount', $_resolvedTicketCount);
+//$smarty->assign('_resolvedTicketCount', $_resolvedTicketCount);
 $smarty->assign('_submitTicketURL', WHMCS_URL . 'submitticket.php');
 $smarty->assign('_listTicketURL', WHMCS_URL . 'supporttickets.php');
 $smarty->assign('_imageURL', WHMCS_URL . 'templates/kayako/images');
@@ -163,6 +133,10 @@ $smarty->assign('_sortOrderFlip', $_sortOrderFlip);
 $smarty->assign('_sortBy', $_sortBy);
 $smarty->assign('_sortOrder', $_sortOrder);
 $smarty->assign('_showResolved', $_showResolved);
+$smarty->assign('_totalTicketCount', $_totalTicketCount);
+$smarty->assign('_pageOffset', (isset($_GET['page'])? $_GET['page'] : 1));
+$smarty->assign('_lastPage', ceil($_totalTicketCount/$_settings['recordsperpage']));
+$smarty->assign('_recordsPerPage', $_settings['recordsperpage']);
 $smarty->assign('_templateURL', getcwd() . '/templates/kayako');
 $smarty->assign('_jscssURL', 'templates/kayako');
 

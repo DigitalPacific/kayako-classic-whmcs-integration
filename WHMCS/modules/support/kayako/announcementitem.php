@@ -5,12 +5,12 @@
  * WHMCS Integration
  * _______________________________________________
  *
- * @author         Ruchi Kothari
+ * @author		Ruchi Kothari
  *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2013, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
+ * @package		WHMCS Integration
+ * @copyright	Copyright (c) 2001-2013, Kayako
+ * @license		http://www.kayako.com/license
+ * @link		http://www.kayako.com
  *
  * ###############################################
  */
@@ -25,7 +25,7 @@
 $_searchParameters = array('Get', $_GET['itemid']);
 $_newsItem         = $_restClient->get($_newsController, $_searchParameters);
 
-$_newsItem = $_newsItem['newsitem'][0];
+$_newsItem         = $_newsItem['newsitem'][0];
 
 $_newsItem['parsedmonth'] = strftime('%b', $_newsItem['dateline']);
 $_newsItem['parseddate']  = GetStrippedDay(strftime('%d', $_newsItem['dateline']));

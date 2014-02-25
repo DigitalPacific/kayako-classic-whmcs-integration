@@ -5,6 +5,8 @@
  * @author Tomasz Sawicki (https://github.com/Furgas)
  * @since Kayako version 4.40.1079
  * @package Object\CustomField
+ *
+ * @noinspection PhpDocSignatureInspection
  */
 class kyCustomFieldMultiSelect extends kyCustomField {
 
@@ -29,6 +31,7 @@ class kyCustomFieldMultiSelect extends kyCustomField {
 		foreach ($values as $value) {
 			$value = str_replace("\,",",",$value);
 			$field_option = $this->getOption($value);
+
 			if ($field_option === null)
 				continue;
 
@@ -55,6 +58,7 @@ class kyCustomFieldMultiSelect extends kyCustomField {
 	 * @return kyResultSet
 	 */
 	public function getSelectedOptions() {
+		/** @noinspection PhpParamsInspection */
 		return new kyResultSet($this->options);
 	}
 
@@ -77,7 +81,7 @@ class kyCustomFieldMultiSelect extends kyCustomField {
 		//check for proper class and eliminate duplicates
 		$options_ids = array();
 		$this->options = array();
-		foreach ($options as $key => $option) {
+		foreach ($options as $option) {
 			$option = ky_assure_object($option, 'kyCustomFieldOption');
 			if ($option !== null && !in_array($option->getId(), $options_ids)) {
 				$this->options[] = $option;
@@ -95,6 +99,7 @@ class kyCustomFieldMultiSelect extends kyCustomField {
 
 	/**
 	 * Returns list of selected options of this custom field.
+	 *
 	 * @see kyCustomField::getValue()
 	 * @see kyCustomFieldMultiSelect::getSelectedOptions()
 	 *

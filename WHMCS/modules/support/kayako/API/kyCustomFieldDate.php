@@ -5,6 +5,8 @@
  * @author Tomasz Sawicki (https://github.com/Furgas)
  * @since Kayako version 4.40.1079
  * @package Object\CustomField
+ *
+ * @noinspection PhpDocSignatureInspection
  */
 class kyCustomFieldDate extends kyCustomField {
 
@@ -51,12 +53,7 @@ class kyCustomFieldDate extends kyCustomField {
 			$format = kyConfig::get()->getDateFormat();
 		}
 
-		if (!empty($this->timestamp)) {
-			return date($format, $this->timestamp);
-		} else {
-			return '';
-		}
-
+		return date($format, $this->timestamp);
 	}
 
 	/**
@@ -83,6 +80,7 @@ class kyCustomFieldDate extends kyCustomField {
 
 	/**
 	 * Sets the date.
+	 *
 	 * @see kyCustomField::setValue()
 	 * @see kyCustomFieldDate::setDate()
 	 *

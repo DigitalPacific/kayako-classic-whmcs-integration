@@ -1,58 +1,32 @@
 <link rel="stylesheet" type="text/css" href="{$_jscssURL}/css/kayako.css"/>
 <script type="text/javascript" src="{$_jscssURL}/js/kayako.js"></script>
 <div class="boxcontainer">
-	<div class="boxcontainerlabel">
-	{if $_resolvedTicketCount > 0}
-		<div style="float: right">
-			<div class="headerbuttongreen" id="resolvedviewbutton" onclick="javascript:ToggleViewHideResolved()" {if $_showResolved == 'true'} style="display:none"{/if}>View
-				Resolved Tickets ({$_resolvedTicketCount})
-			</div>
-			<div class="headerbuttongreen" id="resolvedhidebutton" onclick="javascript:ToggleViewHideResolved()" {if $_showResolved == 'false'} style="display:none"{/if}>Hide
-				Resolved Tickets
-			</div>
-		</div>
-	{/if}
-		View Tickets
-	</div>
 
 	<div class="boxcontainercontent" style="clear: both;">
-
-		<form name="fetchTicketsForm" id="fetchTicketsForm" method="post">
-			<div style="float: right; ">
-				<b>Please select department to fetch related tickets:</b>
-
-				<select name="department" onchange="SubmitForm();">
-					{foreach key = _departmentID item = _department from = $_departmentContainer}
-						<option value="{$_department.departmentid}" {if $_selectedDepartment == $_department.departmentid} selected="selected"{/if}>{$_department.departmenttitle}</option>
-					{/foreach}
-				</select>
-
-			</div>
-		</form>
 
 		<table border="0" cellpadding="3" cellspacing="1" width="100%">
 			<tr>
 				<td class="ticketlistheaderrow" align="left" valign="middle" width="150">Ticket ID</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=LastActivity&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">
+					<a href="{$_listTicketURL}?sortby=lastactivity&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">
 						Last Update &nbsp;{if $_sortBy == 'LastActivity'}{if $_sortOrder == 'ASC'}<img src="{$_imageURL}/sortasc.gif" border="0"/>{elseif $_sortOrder == 'DESC'}
 						<img src="{$_imageURL}/sortdesc.gif" border="0"/>{/if}{/if}
 					</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=LastReplier&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Last Replier</a>
+					<a href="{$_listTicketURL}?sortby=lastreplier&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Last Replier</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=DepartmentId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Department</a>
+					<a href="{$_listTicketURL}?sortby=departmenttitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Department</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=TypeId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Type</a>
+					<a href="{$_listTicketURL}?sortby=tickettypetitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Type</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=StatusId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Status</a>
+					<a href="{$_listTicketURL}?sortby=ticketstatustitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Status</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=PriorityId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Priority</a>
+					<a href="{$_listTicketURL}?sortby=prioritytitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Priority</a>
 				</td>
 			</tr>
 
@@ -83,7 +57,24 @@
 				</tr>
 			{/foreach}
 
-			{else}
+			{if $_totalTicketCount > $_recordsPerPage}
+
+			<div>
+				<div style="float: left;">
+					{if $_pageOffset > 1}
+						<a href="{$_listTicketURL}?page={$_pageOffset-1}&sortby={$_sortBy}&order={$_sortOrder}">&laquo; Previous</a>
+					{/if}
+				</div>
+				<div style="float: right;">
+					{if $_pageOffset < $_lastPage}
+						<a href="{$_listTicketURL}?page={$_pageOffset+1}&sortby={$_sortBy}&order={$_sortOrder}">Next &raquo;</a>
+					{/if}
+				</div>
+			</div>
+
+			{/if}
+
+		{else}
 
 			<td class="ticketlistpropertiescontainer" align="center" valign="middle" colspan="7">
 				<i>You do not have any open ticket in your account. Please click
