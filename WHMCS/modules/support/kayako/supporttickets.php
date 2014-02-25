@@ -81,12 +81,9 @@ if ($_order) {
 	$_sortOrderFlip = 'ASC';
 }
 
-$_orderByFunction = orderBy . $_sortBy;
-
 $_totalTicketCount = kyTicket::getTicketCount($_ticketDepartmentContainer, $_ticketStatusObjectContainer, array(), array(), $clientsdetails['email']);
 
-$_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentContainer, $_ticketStatusObjectContainer, array(), array(), $clientsdetails['email'], $_settings['recordsperpage'], $_offset)
-							->$_orderByFunction($_order);
+$_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentContainer, $_ticketStatusObjectContainer, array(), array(), $clientsdetails['email'], $_settings['recordsperpage'], $_offset, $_sortBy, $_sortOrder);
 
 $_ticketContainer     = array();
 $_resolvedTicketCount = 0;

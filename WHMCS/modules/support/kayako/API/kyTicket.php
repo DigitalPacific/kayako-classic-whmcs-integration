@@ -645,7 +645,7 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 	 * @throws InvalidArgumentException
 	 * @return kyResultSet
 	 */
-	static public function getAll($departments, $ticket_statuses = array(), $owner_staffs = array(), $users = array(), $_userEmail = '', $_ticketCount = -1, $_pageOffset = 0) {
+	static public function getAll($departments, $ticket_statuses = array(), $owner_staffs = array(), $users = array(), $_userEmail = '', $_ticketCount = -1, $_pageOffset = 0, $_sortBy, $_sortOrder) {
 
 		$search_parameters = self::processData('ListAll', $departments, $ticket_statuses, $owner_staffs, $users);
 
@@ -654,6 +654,8 @@ class kyTicket extends kyObjectWithCustomFieldsBase {
 		}
 
 		$search_parameters[] = $_pageOffset;
+		$search_parameters[] = $_sortBy;
+		$search_parameters[] = $_sortOrder;
 
 		$data = array();
 		if (!empty($_userEmail)) {

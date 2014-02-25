@@ -8,25 +8,25 @@
 			<tr>
 				<td class="ticketlistheaderrow" align="left" valign="middle" width="150">Ticket ID</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=LastActivity&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">
+					<a href="{$_listTicketURL}?sortby=lastactivity&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">
 						Last Update &nbsp;{if $_sortBy == 'LastActivity'}{if $_sortOrder == 'ASC'}<img src="{$_imageURL}/sortasc.gif" border="0"/>{elseif $_sortOrder == 'DESC'}
 						<img src="{$_imageURL}/sortdesc.gif" border="0"/>{/if}{/if}
 					</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=LastReplier&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Last Replier</a>
+					<a href="{$_listTicketURL}?sortby=lastreplier&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Last Replier</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=DepartmentId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Department</a>
+					<a href="{$_listTicketURL}?sortby=departmenttitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Department</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=TypeId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Type</a>
+					<a href="{$_listTicketURL}?sortby=tickettypetitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Type</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=StatusId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Status</a>
+					<a href="{$_listTicketURL}?sortby=ticketstatustitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Status</a>
 				</td>
 				<td class="ticketlistheaderrow" align="center" valign="middle" width="">
-					<a href="{$_listTicketURL}?sortby=PriorityId&order={$_sortOrderFlip}" onclick="javascript:CheckForResolved(this)">Priority</a>
+					<a href="{$_listTicketURL}?sortby=prioritytitle&order={$_sortOrderFlip}&page={$_pageOffset}" onclick="javascript:CheckForResolved(this)">Priority</a>
 				</td>
 			</tr>
 
@@ -62,12 +62,12 @@
 			<div>
 				<div style="float: left;">
 					{if $_pageOffset > 1}
-						<a href="{$_listTicketURL}?page={$_pageOffset-1}">&laquo; Previous</a>
+						<a href="{$_listTicketURL}?page={$_pageOffset-1}&sortby={$_sortBy}&order={$_sortOrder}">&laquo; Previous</a>
 					{/if}
 				</div>
 				<div style="float: right;">
 					{if $_pageOffset < $_lastPage}
-						<a href="{$_listTicketURL}?page={$_pageOffset+1}">Next &raquo;</a>
+						<a href="{$_listTicketURL}?page={$_pageOffset+1}&sortby={$_sortBy}&order={$_sortOrder}">Next &raquo;</a>
 					{/if}
 				</div>
 			</div>
