@@ -102,6 +102,20 @@ function validateForm(submissionStep) {
 			alert('Please enter ticket message!');
 			return false;
 		}
+
+		var attachments = [];
+		$("input[name='ticketattachments[]']").each(function() {
+			attachments.push($(this).val());
+		});
+
+		for ($i= 0; $i< attachments.length; $i++) {
+			if (attachments[$i] == '') {
+
+				alert('Please select a file to upload!');
+				return false;
+			}
+		}
+
 	}
 
 	return true;
