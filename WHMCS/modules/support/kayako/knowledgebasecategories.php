@@ -35,7 +35,13 @@ $_knowledgebaseCategoryContainer_Complete = $_restClient->get($_categoryControll
 $_knowledgebaseCategoryContainer_Complete = $_knowledgebaseCategoryContainer_Complete['kbcategory'];
 
 //Retrieve Knowledgebase articles
-$_knowledgebaseArticleCount = $_restClient->get($_articalController, array('GetArticleCount', $_parentCategoryID));
+if (!empty($_parentCategoryID)) {
+	$_searchParameters = array('GetArticleCount', $_parentCategoryID);
+} else {
+	$_searchParameters = array($_parentCategoryID);
+}
+
+$_knowledgebaseArticleCount = $_restClient->get($_articalController, $_searchParameters);
 $_totalArticles             = $_knowledgebaseArticleCount['totalarticles'];
 
 $_tdWidth = round(100 / $_settings['categorycolumns']);
