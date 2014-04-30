@@ -26,6 +26,16 @@ $_searchParameters = array('Get', $_GET['articleid']);
 $_knowledgebaseArticle = $_restClient->get($_articalController, $_searchParameters);
 $_knowledgebaseArticle = $_knowledgebaseArticle['kbarticle'][0];
 
+if (isset($_knowledgebaseArticle['categories'][0]['categoryid']) && $_knowledgebaseArticle['categories'][0]['categoryid'] > 0) {
+	$_searchParameters      = array('Get', $_knowledgebaseArticle['categories'][0]['categoryid']);
+	$_knowledgebaseCategory = $_restClient->get($_categoryController, $_searchParameters);
+
+	// Return if its private category
+	if ($_knowledgebaseCategory['kbcategory'][0]['categorytype'] == '3') {
+		return false;
+	}
+}
+
 $_staffController  = '/Base/Staff';
 $_searchParameters = array('Get', $_knowledgebaseArticle['creatorid']);
 $_staffUser        = $_restClient->get($_staffController, $_searchParameters);

@@ -49,8 +49,15 @@ $_tdWidth = round(100 / $_settings['categorycolumns']);
 $_index                               = 1;
 $_knowledgebaseCategoryContainer      = array();
 $_knowledgebaseCategoryContainer_Temp = array();
+$_privateCategoryContainer            = array();
 
 foreach ($_knowledgebaseCategoryContainer_Complete as $_key => $_knowledgebaseCategory) {
+
+	if ($_knowledgebaseCategory['categorytype'] == '3') {
+		$_privateCategoryContainer[] = $_knowledgebaseCategory['id'];
+		continue;
+	}
+
 	$_knowledgebaseCategory['articles'] = array_slice($_categoryArticleList[$_knowledgebaseCategory['id']], 0, $_settings['categoryarticlelimit']);
 	$_knowledgebaseCategory['tdwidth']  = $_tdWidth;
 
@@ -87,6 +94,11 @@ $_parentCategoryArticleContainer_Complete = $_parentCategoryArticleContainer_Com
 
 $_knowledgebaseArticleContainer = array();
 foreach ($_parentCategoryArticleContainer_Complete as $_knowledgebaseArticle) {
+
+	if (in_array($_parentCategoryID, $_privateCategoryContainer)) {
+		continue;
+	}
+
 	if (in_array($_parentCategoryID, $_knowledgebaseArticle['categories'][0]) || in_array($_parentCategoryID, $_knowledgebaseArticle['categories'][0]['categoryid'])) {
 		$_knowledgebaseArticleContainer[] = $_knowledgebaseArticle;
 	}
