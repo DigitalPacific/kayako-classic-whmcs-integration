@@ -1,0 +1,751 @@
+/*
+    Document   : kayako
+    Created on : May 15, 2012, 3:04:57 PM
+    Author     : Ruchi
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root {
+    display: block;
+}
+
+.boxcontainer {
+    background: none repeat scroll 0 0 #F2F2EB;
+    border-radius: 12px 12px 0 0;
+    margin: 16px 0;
+    padding: 10px;
+}
+
+.boxcontainerlabel {
+    color: #4E4E4E;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.boxcontainercontent {
+    background: none repeat scroll 0 0 white;
+    border: 2px solid #E2E2D6;
+    font-size: 12px !important;
+    padding: 10px;
+}
+
+.hlineheader {
+    color: #277DCA;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.hlineheader th {
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #277DCA;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 14px;
+}
+
+td.hlinelower {
+    border-top: 1px solid #ECECEC;
+    width: 100%;
+}
+
+.zebraodd {
+    background-color: #F7F5E7;
+    font-size: 13px;
+}
+
+.subcontent {
+    padding: 4px 0 4px 4px;
+}
+
+.rebuttonwide2 {
+    background: url("../images/buttonwide2_sprite.png") no-repeat scroll 0 0 transparent;
+    border: 0 solid white;
+    color: #333333;
+    cursor: pointer;
+    font-family: candara,trebuchet ms,tahoma,verdana,tahoma,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 36px !important;
+    margin: 5px 5px 5px 0;
+    padding: 5px 0 10px;
+    vertical-align: middle;
+    width: 95px !important;
+}
+
+.ticketsubdepartment {
+    background: url("../images/linkdownarrow.gif") no-repeat scroll 4px 0 transparent;
+    margin-left: 10px;
+    padding: 0 0 0 20px;
+}
+
+.swifttextwide {
+    background: url("../images/inputtextbg.gif") repeat-x scroll left top #FFFFFF;
+    border: 1px solid #CDC2AB;
+    color: #000000;
+    margin: 0;
+    padding: 4px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.swifttextareawide {
+    background: url("../images/inputtextbg.gif") repeat-x scroll left top #FFFFFF;
+    border: 1px solid #CDC2AB;
+    color: #000000;
+    padding: 2px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.addplus {
+    background: url("../images/icon_add.gif") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    padding: 0 0 0 20px;
+}
+
+.ticketlistheaderrow {
+    background: none repeat scroll 0 0 #F8F4EB;
+    border-bottom: 1px solid #DDDDC7;
+    border-top: 1px solid #FFFFFF;
+    color: #333333;
+    font-size: 1em;
+    padding: 5px;
+}
+
+.ticketlistproperties td{
+    color: #FFFFFF;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.ticketlistpropertiesdivider {
+    height: 5px;
+}
+
+.ticketlistpropertiesdivider td{
+    font-size: 3px;
+}
+
+.ticketlistpropertiescontainer {
+    padding: 5px;
+}
+
+.headerbutton, .headerbuttongreen, .headerbuttonorange, .headerbuttonred, .headerbuttonblue, .headerbuttonyellow {
+    background: url("../images/overlay-button.png") repeat-x scroll 0 0 #333333;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    margin: -4px 0 0 6px;
+    padding: 9px 10px 10px;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.headerbuttongreen {
+    background-color: #01A934;
+}
+
+.headerbuttongreen:hover {
+	background-color: #14c84b;
+}
+
+.ticketlistsubject {
+    color: #333333;
+    font-size: 1.3em;
+}
+
+a:link {
+    color: #333333;
+    outline: medium none;
+    text-decoration: none;
+}
+
+a:hover {
+	color: red;
+}
+
+.boxcontainercontenttight {
+    background: none repeat scroll 0 0 white;
+    border: 2px solid #E2E2D6;
+    font-size: 12px;
+}
+
+.ticketgeneralcontainer {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+.ticketgeneraltitlecontainer {
+    padding: 8px 8px 10px;
+}
+
+.ticketgeneraldepartment {
+    color: #B24C58 !important;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.ticketgeneraltitle {
+    background: url("../images/linkdownarrow.gif") no-repeat scroll 10px 4px transparent;
+    color: #333333;
+    font-size: 1.8em;
+    padding: 0 0 8px 25px;
+}
+
+.ticketgeneralinfocontainer {
+    color: #5A5A5A;
+    font-size: 10px;
+    padding: 6px 8px 5px;
+}
+
+.ticketbenchmarks {
+    color: #333333;
+    font-size: 11px;
+    padding: 6px 8px 5px;
+}
+
+.ticketbenchmark {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.ticketbenchmarktitle {
+    display: inline;
+    float: left;
+    margin-right: 5px;
+}
+
+.ticketgeneralproperties {
+    height: 65px;
+}
+
+.ticketgeneralpropertiesobject, .ticketgeneralpropertiesobjectwide, .ticketgeneralpropertiesobjectmed {
+    background: none repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    height: 49px;
+    padding: 10px 2px 6px;
+    width: 124px;
+}
+
+.ticketgeneralpropertiestitle {
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.ticketgeneralpropertiescontent {
+    font-size: 1.13em;
+    font-weight: bold;
+    padding: 4px 0 0;
+    text-align: center;
+}
+
+.ticketgeneralpropertiesdivider {
+    display: block;
+    float: left;
+    padding: 10px 0 0;
+}
+
+.viewticketcontentcontainer {
+    padding: 0 0 0 8px;
+}
+
+.ticketpaddingcontainer {
+    padding: 8px;
+}
+
+.swifttextareawide {
+    background: url("../images/inputtextbg.gif") repeat-x scroll left top #FFFFFF;
+    border: 1px solid #CDC2AB;
+    color: #000000;
+    padding: 2px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.swifttexterror, .swifttextnumeric, .swifttextwide, .swifttextareawide, .swifttextsmall, .swifttextlarge, .swiftpassword, .swifttextdisabled, .swifttextarea, .swiftselect, .swifttextlarge {
+    font-family: Calibri,Verdana,Tahoma,Helvetica;
+    font-size: 1.4em;
+}
+
+.swifttexterror, .swifttextnumeric, .swifttextwide, .swifttextsmall, .swifttextlarge, .swiftpassword, .swifttextdisabled, .swiftselect, .swifttextlarge {
+	height: 32px;
+}
+
+.swiftselect {
+    background-color: #FFFFFF;
+    border: 1px solid #CDC2AB;
+    color: #000000;
+    margin: 0;
+    padding: 1px;
+    vertical-align: middle;
+    z-index: 11;
+}
+
+.subcontent {
+    padding: 4px 0 4px 4px;
+}
+
+.ticketpostcontainer {
+    background: none repeat scroll 0 0 #F8F4EB;
+    border-color: #D3C7B6 #B5A48C #B5A48C #D3C7B6;
+    border-style: solid;
+    border-width: 1px;
+    margin: 8px;
+    position: relative;
+}
+
+.ticketpostbar {
+    float: left;
+    padding: 10px;
+    width: 240px;
+}
+
+.ticketpostbarname {
+    color: #B24C58;
+    font: bold 18px Candara,Trebuchet MS,Verdana,Arial,Helvetica;
+    margin-left: -50px;
+    padding: 0 0 0 10px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.ticketpostbarbadgeblue, .ticketpostbarbadgered, .ticketpostbarbadgegreen {
+    color: #000000;
+    font: 10px Verdana,Tahoma,Arial,Helvetica;
+    height: 21px;
+    left: 50%;
+    margin: 10px 0 10px -57px;
+    position: relative;
+    width: 71px;
+}
+
+.ticketpostbarbadgeblue {
+    background: url("../images/badge1blue.gif") no-repeat scroll left top transparent;
+}
+
+.ticketpostbarbadgeblue .tpbadgetext, .ticketpostbarbadgered .tpbadgetext, .ticketpostbarbadgegreen .tpbadgetext {
+    padding: 3px 0 0;
+    text-align: center;
+    width: 70px;
+}
+
+.ticketpostcontents {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 4px solid #DED5C7;
+    height: auto;
+    margin-left: 236px;
+    position: relative;
+}
+
+.ticketpostcontentsbar {
+    background: none repeat scroll 0 0 #98BDC6;
+    border: 1px solid #6E8D94;
+    display: block;
+    float: left;
+    height: 20px;
+    margin: 10px 0 0 -40px;
+    position: relative;
+    text-shadow: 0 1px 0 #8BAEB7;
+    width: 100%;
+}
+
+.ticketbarquote {
+    background: url("../images/icon_quote.gif") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    float: right;
+    height: 16px;
+    margin: 2px 3px 0 0;
+    width: 16px;
+}
+
+.ticketpostcontentsbar .ticketbarcontents {
+    color: #FFFFFF;
+    padding: 3px 0 0 6px;
+}
+
+.ticketpostcontentsbar span.ticketbardatefold {
+    background: url("../images/ticketdatefold.png") no-repeat scroll center center transparent;
+    bottom: -15px;
+    display: block;
+    height: 14px;
+    left: 0;
+    position: absolute;
+    width: 19px;
+}
+
+.ticketpostcontentsdetails {
+    padding: 50px 0 0;
+}
+
+.ticketpostcontentsholder {
+    padding: 0 0 15px 20px;
+}
+
+.ticketpostcontentsdetailscontainer {
+    color: #333333;
+    cursor: text;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.ticketpostcontentsbottom {
+    border-top: 1px solid #DED5C7;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.ticketpostbottomright {
+    float: right;
+    padding: 8px;
+}
+
+.ticketpostcontentsbottom .ticketpostbottomcontents, .ticketpostbarbottom .ticketpostbottomcontents {
+    height: 16px;
+    padding: 8px;
+}
+
+.ticketpostbarbottom {
+    border-top: 1px solid #DED5C7;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 240px;
+}
+
+.ticketpostclearer {
+    clear: both;
+}
+
+.ticketpostbarbadgered {
+    background: url("../images/badge1red.gif") no-repeat scroll left top transparent;
+}
+
+.smalltext {
+    font-family: Verdana,Tahoma,sans-serif;
+    font-size: 9px;
+}
+
+.customfieldrequired {
+    color: red;
+    margin-left: 6px;
+}
+
+.linkedselectcontainer {
+    background: url("../images/linkdownarrow_blue.gif") no-repeat scroll 0 10px transparent;
+    padding: 4px 0 0 20px;
+}
+
+
+
+.ticketpostcontentsattachments {
+    border-bottom: 1px solid #DED5C7;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    width: 100%;
+}
+
+.ticketpostcontentsattachmentitem {
+    background-position: 0 3px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: inline;
+    margin: 0 10px 0 0;
+    padding: 4px 0 5px 18px;
+}
+
+.kbcategorytitle .kbcategorycount {
+    color: #989898;
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.kbcategorytitle {
+    background: url("../images/icon_folderyellowfaded.gif") no-repeat scroll 0 1px transparent;
+    border-bottom: 1px solid #ECECEC;
+    color: #333333;
+    cursor: pointer;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    padding: 0 0 4px 20px;
+}
+
+.kbarticlelist .kbarticlelistitem, .kbarticlecategorylistitem {
+    line-height: 1.4em;
+}
+
+.kbarticlelist .kbarticlelistitem, .kbarticlecategorylistitem {
+    background: url("../images/icon_kbarticlesmall.png") no-repeat scroll 0 0 transparent;
+    line-height: 1.4em;
+    margin-top: 8px;
+    padding: 0 0 0 20px;
+}
+
+.kbcategorytitlecontainer {
+    margin: 0 12px 20px 0;
+}
+
+.kbarticlecontainer, .kbsearchcontainer {
+    background: url("../images/icon_kbarticle.png") no-repeat scroll 0 1px transparent;
+    border-bottom: 1px solid #ECECEC;
+    margin: 0 0 30px;
+    padding: 0 10px 16px 38px;
+}
+
+.kbarticle, .kbsearch {
+    color: #277DCA;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hlinegray {
+    color: #626262 !important;
+}
+
+.kbtitle {
+    font-size: 80%;
+}
+
+.kbtitlemain {
+    font-family: Calibri,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.kbinfo {
+    color: gray;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 11px;
+    padding-bottom: 14px;
+    padding-top: 2px;
+}
+
+.kbcontents {
+    font-size: 12px;
+}
+
+.commentslabel {
+    color: #333333;
+    font-family: Calibri,Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 22px;
+    padding-bottom: 6px;
+    text-decoration: none;
+}
+
+.commentavatar {
+    float: left;
+    width: 80px;
+}
+
+.commentdataholder {
+    line-height: 16px;
+    margin-left: 20px;
+}
+
+.commentdataholderstaff {
+    background: none repeat scroll 0 0 #FFF1C8;
+    border-radius: 12px 12px 12px 12px;
+    padding: 12px 12px 0;
+}
+
+.commentnamelabel {
+    color: #333333;
+    font: 16px Georgia,"Times New Roman",Times,serif;
+    margin-bottom: 6px;
+    padding-top: 4px;
+}
+
+.commentdatelabel {
+    color: #666666;
+    font: 14px Georgia,"Times New Roman",Times,serif;
+}
+
+.commentcontentsholder {
+    font: 16px Georgia,"Times New Roman",Times,serif;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    padding-top: 15px;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.commentchild {
+    background: url("../images/downarrow.gif") no-repeat scroll 0 22px transparent;
+    padding-left: 18px;
+}
+
+.swifttextlarge {
+    background: url("../images/inputtextbg.gif") repeat-x scroll left top #FFFFFF;
+    border: 1px solid #CDC2AB;
+    color: #000000;
+    margin: 0;
+    padding: 4px;
+    vertical-align: middle;
+    width: 300px;
+}
+
+.swifttextarea {
+    background: url("../images/inputtextbg.gif") repeat-x scroll left top #FFFFFF;
+    border: 1px solid #CDC2AB;
+    color: #000000;
+    padding: 2px;
+    vertical-align: middle;
+    width: 450px;
+}
+
+.datecontainerparent {
+    height: 88px;
+    width: 54px;
+}
+
+.monthholder {
+    background: url("../images/calendartop.gif") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    font: bold 11px Verdana,Arial,Helvetica;
+    height: 22px;
+    padding: 0;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(112, 165, 232, 0.5);
+    vertical-align: middle;
+    width: 54px;
+}
+
+.monthsub {
+    padding-top: 4px;
+}
+
+.dateholder {
+    background: url("../images/calendarbottom.gif") no-repeat scroll 0 0 transparent;
+    color: #555555;
+    display: block;
+    font: 10px Verdana,Arial,Helvetica;
+    height: 66px;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 54px;
+}
+
+.datecontainer {
+    font: 28px Trebuchet MS,Calibri,Verdana,Arial,Helvetica;
+    padding-top: 3px;
+}
+
+.newsavatar {
+    border: 1px solid lightgray;
+    float: right;
+    padding: 3px;
+}
+
+.newstitle {
+    font-size: 80%;
+    margin-left: 10px;
+    margin-top: 0;
+    padding: 0 3px 3px;
+}
+
+.newstitlelink {
+    color: #277DCA !important;
+    font-family: Calibri,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.newsinfo {
+    color: gray;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 11px;
+    padding-bottom: 14px;
+    padding-top: 2px;
+}
+
+.newscontents {
+    font-size: 12px;
+}
+
+.newsreadmorelink {
+    color: #277DCA !important;
+    font-family: Calibri,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.newshr {
+	margin-bottom: 16px;
+	height: 1px;
+	border: none;
+	border-top: 1px solid #cfcfcf;
+	color: white;
+	background-color: white;
+}
+
+.newsfooter {
+    text-align: center;
+}
+
+.dialoginfo {
+    background-color: #B3EAB8;
+    display: none;
+    margin: 16px 0;
+    padding: 6px;
+}
+
+.dialoginfosub {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #DFDFD3;
+    padding: 2px;
+}
+
+.dialoginfocontent {
+    background: url("../images/icon_info.png") no-repeat scroll 4px 0 transparent;
+    border: 1px solid #DFDFD3;
+    color: #4E4E4E;
+    font-family: Candara,Trebuchet MS,Verdana,Arial,Helvetica,Georgia,serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 6px 6px 38px;
+    text-decoration: none;
+}
+
+.kbattachmentitem {
+    background-position: 0 3px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: inline;
+    margin: 0 10px 0 0;
+    padding: 4px 0 5px 18px;
+}
+
+.kbattachments {
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    width: 100%;
+}
