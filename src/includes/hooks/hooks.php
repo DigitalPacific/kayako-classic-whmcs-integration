@@ -45,6 +45,7 @@ function hook_clientarea_details($_params)
 	include_once(getcwd() . '/modules/support/kayako/fetchOpenTickets.php');
 
 	$_params['clientsstats']['numactivetickets'] = $_numActiveTickets;
+	$_params['clientsstats']['numtickets'] = $_totalTicketCount;
 	$smarty->assign('clientsstats', $_params['clientsstats']);
 	$smarty->assign('tickets', $_ticketContainer);
 }
