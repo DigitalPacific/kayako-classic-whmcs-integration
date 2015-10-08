@@ -5,12 +5,12 @@
  * WHMCS Integration
  * _______________________________________________
  *
- * @author		Ruchi Kothari
+ * @author         Ruchi Kothari
  *
- * @package		WHMCS Integration
- * @copyright	Copyright (c) 2001-2013, Kayako
- * @license		http://www.kayako.com/license
- * @link		http://www.kayako.com
+ * @package        WHMCS Integration
+ * @copyright      Copyright (c) 2001-2015, Kayako
+ * @license        http://www.kayako.com/license
+ * @link           http://www.kayako.com
  *
  * ###############################################
  */
