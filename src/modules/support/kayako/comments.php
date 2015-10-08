@@ -8,7 +8,7 @@
  * @author		Ruchi Kothari
  *
  * @package		WHMCS Integration
- * @copyright	Copyright (c) 2001-2013, Kayako
+ * @copyright	Copyright (c) 2001-2015, Kayako
  * @license		http://www.kayako.com/license
  * @link		http://www.kayako.com
  *
