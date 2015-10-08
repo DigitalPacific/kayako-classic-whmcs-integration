@@ -50,6 +50,7 @@ foreach ($_ticketStatusObjectContainer as $_ticketStatusObject) {
 
 $_ticketObjectContainer = kyTicket::getAll($_ticketDepartmentObjectContainer, $_ticketStatusObjectContainer, [], [], $_params['clientsdetails']['email'], $_settings['recordsperpage'], 0)
 	->orderByLastActivity();
+$_totalTicketCount = kyTicket::getTicketCount($_ticketDepartmentObjectContainer, $_ticketStatusObjectContainer, array(), array(), $clientsdetails['email']);
 
 $_ticketContainer  = [];
 $_numActiveTickets = 0;
