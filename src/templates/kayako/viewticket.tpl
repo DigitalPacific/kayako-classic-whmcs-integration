@@ -173,21 +173,21 @@
 			<div class="ticketpostavatar">
 				<div class="tpavatar"><img src="{$_ticketPost.avatar}" align="absmiddle" border="0"/></div>
 			</div>{/if}
-			{if $_ticketPostBenchmarkCount > 0 && $_ticketPost.creatorlabel == 'staff'}
-			<div class="ticketpostbox">
-				{foreach key=_benchmarkID item=_ticketPostBenchmark from=$_ticketPostBenchmarkContainer}
-				<div class="ticketpostinfoitem">
-					<div class="ticketpostinfoitemtitle">{$_ticketPostBenchmark.benchmarktitle}</div>
-					{for name=_benchmarkScale from=1 to=$_ticketPostBenchmark.benchmarkscale}
-					<input name="benchmark_{$_benchmarkID}_{$_ticketPostID}" type="radio" class="rating"
-						   value="{$_benchmarkScale}" {if $_ticketPostBenchmarkResults.$_benchmarkID.$_ticketPostID.isdisabled == true}
-					disabled="disabled" {/if}{if $_ticketPostBenchmarkResults.$_benchmarkID.$_ticketPostID.benchmarkresult == '$_benchmarkScale'}
-					checked="checked"{/if} />
-					{/for}
-				</div>
-				{/foreach}
-			</div>
-			{/if}
+			{#{if $_ticketPostBenchmarkCount > 0 && $_ticketPost.creatorlabel == 'staff'}#}
+			{#<div class="ticketpostbox">#}
+				{#{foreach key=_benchmarkID item=_ticketPostBenchmark from=$_ticketPostBenchmarkContainer}#}
+				{#<div class="ticketpostinfoitem">#}
+					{#<div class="ticketpostinfoitemtitle">{$_ticketPostBenchmark.benchmarktitle}</div>#}
+					{#{for name=_benchmarkScale from=1 to=$_ticketPostBenchmark.benchmarkscale}#}
+					{#<input name="benchmark_{$_benchmarkID}_{$_ticketPostID}" type="radio" class="rating"#}
+						   {#value="{$_benchmarkScale}" {if $_ticketPostBenchmarkResults.$_benchmarkID.$_ticketPostID.isdisabled == true}#}
+					{#disabled="disabled" {/if}{if $_ticketPostBenchmarkResults.$_benchmarkID.$_ticketPostID.benchmarkresult == '$_benchmarkScale'}#}
+					{#checked="checked"{/if} />#}
+					{#{/for}#}
+				{#</div>#}
+				{#{/foreach}#}
+			{#</div>#}
+			{#{/if}#}
 		</div>
 
 		<div style="min-height: {$_ticketPost.minimumheight}px;" class="ticketpostcontents">
