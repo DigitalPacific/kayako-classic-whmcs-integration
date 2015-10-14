@@ -1,25 +1,10 @@
 <?php
 /**
- * ###############################################
- *
- * WHMCS Integration
- * _______________________________________________
- *
- * @author         Ruchi Kothari
- *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2015, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
- *
- * ###############################################
+ * @copyright      2001-2015 Kayako
+ * @license        https://www.freebsd.org/copyright/freebsd-license.html
+ * @link           https://github.com/kayako/whmcs-integration
  */
 
-/**
- * File to save comments
- *
- * @author Ruchi Kothari
- */
 $_postData                = $_POST;
 $_postData[$_itemIDKey]   = $_itemID;
 $_postData['creatortype'] = CREATOR_USER;

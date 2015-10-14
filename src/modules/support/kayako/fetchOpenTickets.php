@@ -1,24 +1,8 @@
 <?php
 /**
- * ###############################################
- *
- * WHMCS Integration
- * _______________________________________________
- *
- * @author         Amarjeet Kaur
- *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2015, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
- *
- * ###############################################
- */
-
-/**
- * File to fetch Open Support Tickets
- *
- * @author Amarjeet Kaur
+ * @copyright      2001-2015 Kayako
+ * @license        https://www.freebsd.org/copyright/freebsd-license.html
+ * @link           https://github.com/kayako/whmcs-integration
  */
 
 //Include config file

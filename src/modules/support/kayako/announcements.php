@@ -1,25 +1,10 @@
 <?php
 /**
- * ###############################################
- *
- * WHMCS Integration
- * _______________________________________________
- *
- * @author         Ruchi Kothari
- *
- * @package        WHMCS Integration
- * @copyright      Copyright (c) 2001-2015, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
- *
- * ###############################################
+ * @copyright      2001-2015 Kayako
+ * @license        https://www.freebsd.org/copyright/freebsd-license.html
+ * @link           https://github.com/kayako/whmcs-integration
  */
 
-/**
- * Common announcements file
- *
- * @author Ruchi Kothari
- */
 require_once __DIR__ . '/config.php';
 require_once 'API/kyConfig.php';
 require_once 'API/kyRESTClientInterface.php';
