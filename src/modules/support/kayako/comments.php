@@ -2,7 +2,7 @@
 /**
  * @copyright      2001-2015 Kayako
  * @license        https://www.freebsd.org/copyright/freebsd-license.html
- * @link           https://github.com/kayako/drupal-integration
+ * @link           https://github.com/kayako/whmcs-integration
  */
 
 $_commentContainer = array();
