@@ -1,24 +1,8 @@
 <?php
 /**
- * ###############################################
- *
- * SWIFT Framework
- * _______________________________________________
- *
- * @author         Ruchi Kothari
- *
- * @package        SWIFT
- * @copyright      Copyright (c) 2001-2015, Kayako
- * @license        http://www.kayako.com/license
- * @link           http://www.kayako.com
- *
- * ###############################################
- */
-
-/**
- * File to get ticket attachments
- *
- * @author Ruchi Kothari
+ * @copyright      2001-2015 Kayako
+ * @license        https://www.freebsd.org/copyright/freebsd-license.html
+ * @link           https://github.com/kayako/drupal-integration
  */
 
 //Include config file

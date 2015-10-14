@@ -1,10 +1,8 @@
-/*
-    Document   : kayako
-    Created on : May 15, 2012, 3:04:57 PM
-    Author     : Ruchi
-    Description:
-        Purpose of the stylesheet follows.
-*/
+/**
+ * @copyright      2001-2015 Kayako
+ * @license        https://www.freebsd.org/copyright/freebsd-license.html
+ * @link           https://github.com/kayako/drupal-integration
+ */
 
 root {
     display: block;
