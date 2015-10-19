@@ -28,3 +28,16 @@ Supported versions
 =======================
 * Kayako: 4.64 and above
 * WHMCS: 5.1.2 and above
+
+Installation Steps
+=======================
+1. Download and extract the Kayako-WHMCS integration
+2. Copy 'modules/support/kayako/' folder from 'src/modules' and paste under 'modules/support/kayako/' directory of installed_WHMCS
+3. Copy 'templates/kayako/' folder from 'src/templates' and paste under 'templates' directory of installed_WHMCS
+4. Copy 'hooks.php' from 'includes/hooks/' folder and paste it in 'installed_WHMCS/includes/hooks' folder. (if 'hooks.php' already exists, then please add this code in respective file at the end)
+5. Copy API Details from your Helpdesk installation > Rest API > API Information. Now open installed_WHMCS/modules/support/kayako/config.php and make respective changes for your API details
+6. Modify date format in Installed_WHMCS/modules/support/kayako/API/kyConfig.php as per the date format you specified in installed_WHMCS/modules/support/kayako/config.php
+7. Go to Admin area of WHMCS installation
+8. Go to Setup > General Settings
+9. Click on Support tab and select 'Kayako' from dropdown of 'Support Module'
+10. Now you are ready to use 'WHMCS integration with Kayako'
