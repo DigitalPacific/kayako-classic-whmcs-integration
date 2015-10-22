@@ -7,6 +7,7 @@
 	<div class="boxcontainercontent">
 		<table cellpadding="0" cellspacing="0" border="0">
 		{foreach key=newsitemid item=_newsItem from=$_newsContainer}
+			{if $_newsItem.expiry==0 or $_newsItem.expiry>=($smarty.now)}
 			<tr>
 				<td width="60" align="left" valign="top">
 					<div class="datecontainerparent">
@@ -30,6 +31,7 @@
 			<tr>
 			<td colspan="2"><hr class="newshr" /><br /><br /></td>
 			</tr>
+			{/if}
 		{/foreach}
 		</table>
 		{if $_newsCount > 0}
