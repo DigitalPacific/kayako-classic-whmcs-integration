@@ -45,7 +45,7 @@
 
 						<div class="ticketgeneralpropertiesobject">
 							<div class="ticketgeneralpropertiestitle">OWNER</div>
-							<div class="ticketgeneralpropertiescontent">{$_ticketContainer.fullname}</div>
+							<div class="ticketgeneralpropertiescontent">{if $_ticketContainer.owner==''}Unassigned {else} {$_ticketContainer.owner}{/if}</div>
 						</div>
 
 						<div class="ticketgeneralpropertiesdivider"><img border="0" align="middle" src="{$_imageURL}/ticketpropertiesdivider.png"></div>
