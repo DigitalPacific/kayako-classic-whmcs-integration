@@ -133,8 +133,6 @@
 				</tr>
 			</table>
 			<br/>
-
-			<!--{//if $_settings[t_cenattach] == '1'}-->
 			<table class="hlineheader">
 				<tr>
 					<th rowspan="2" nowrap>Upload File(s)
@@ -149,7 +147,6 @@
 			</table>
 			<div id="ticketattachmentcontainer">
 			</div>
-			<!--{///if}-->
 			<br/>
 
 			<div class="subcontent"><input class="rebuttonwide2" value="Send" type="submit" name="button"/></div>
