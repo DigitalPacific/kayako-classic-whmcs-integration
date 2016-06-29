@@ -16,6 +16,7 @@ require_once 'functions.php';
 //Include constants file
 require_once 'constants.php';
 
+$clientsdetails = getclientsdetails($_userid);
 if (!isset($clientsdetails['email'])) {
 	header('Location: ' . WHMCS_URL . 'clientarea.php');
 }

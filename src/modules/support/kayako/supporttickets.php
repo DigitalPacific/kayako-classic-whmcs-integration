@@ -16,6 +16,7 @@ require_once 'constants.php';
 
 //Initialize the client
 kyConfig::set(new kyConfig(API_URL, API_KEY, SECRET_KEY));
+$clientsdetails = getclientsdetails($_userid);
 
 $_ticketDepartmentContainer = kyDepartment::getAll()->filterByModule(kyDepartment::MODULE_TICKETS)->filterByType(kyDepartment::TYPE_PUBLIC);
 

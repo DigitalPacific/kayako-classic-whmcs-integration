@@ -13,6 +13,7 @@ if (!empty($_GET['tid'])) {
 
 //Get ticket properties
 $_ticketObject = kyTicket::get($_ticketID);
+$clientsdetails = getclientsdetails($_userid);
 
 if ($_ticketObject->getEmail() != $clientsdetails['email']) {
 	$smarty->assign('_noPermissions', true);
