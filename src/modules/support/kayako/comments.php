@@ -6,6 +6,7 @@
  */
 
 $_commentContainer = array();
+$clientsdetails = getclientsdetails($_userid);
 
 foreach ($_commentContainer_Complete as $_comment) {
 
